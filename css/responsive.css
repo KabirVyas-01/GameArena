@@ -1,0 +1,161 @@
+/* ========================================================
+   GAME ARENA - Responsive Styles
+   Mobile, Tablet, and Desktop Breakpoints
+   ======================================================== */
+
+@media (max-width: 1024px) {
+  .games-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .quick-stats-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 0 16px;
+  }
+
+  .navbar {
+    padding: 14px 0;
+  }
+
+  .brand-title {
+    font-size: 18px;
+  }
+
+  .brand-author {
+    font-size: 10px;
+  }
+
+  .nav-action-btn span {
+    display: none;
+  }
+
+  .nav-action-btn {
+    padding: 8px 12px;
+  }
+
+  .hero-heading {
+    font-size: 32px;
+  }
+
+  .hero-subtext {
+    font-size: 14px;
+  }
+
+  .games-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .quick-stats-strip {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 12px 14px;
+  }
+
+  .stat-value {
+    font-size: 17px;
+  }
+
+  .hub-signature-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .signature-icon {
+    margin: 0 auto;
+  }
+
+  .game-workspace {
+    padding: 20px 14px;
+  }
+
+  .rps-scoreboard {
+    padding: 12px 14px;
+  }
+
+  .showdown-hand {
+    width: 72px;
+    height: 72px;
+    font-size: 44px;
+  }
+
+  .rps-choice-buttons {
+    gap: 8px;
+  }
+
+  .rps-btn {
+    padding: 12px 14px;
+    min-width: 85px;
+  }
+
+  .rps-emoji {
+    font-size: 26px;
+  }
+
+  .ttt-board-container {
+    width: 280px;
+    height: 280px;
+  }
+
+  .sudoku-grid {
+    width: 290px;
+    height: 290px;
+  }
+
+  .sudoku-cell {
+    font-size: 18px;
+  }
+
+  .app-footer {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-heading {
+    font-size: 26px;
+  }
+
+  .quick-stats-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .game-header-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .game-title-group {
+    order: -1;
+  }
+
+  .rps-scoreboard {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .stats-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sudoku-grid {
+    width: 260px;
+    height: 260px;
+  }
+
+  .sudoku-cell {
+    font-size: 16px;
+  }
+}

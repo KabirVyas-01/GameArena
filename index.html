@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GAME ARENA | Created by KABIR VYAS</title>
+  <meta name="description" content="Premium Game Arena featuring Rock-Paper-Scissors (Best of 5), Tic-Tac-Toe (vs Bot & Duel Mode), and 6x6 Sudoku (Beginner & Pro). Created by KABIR VYAS.">
+  
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/games.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <!-- Canvas for Victory Confetti -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Main App Shell -->
+  <div class="app-container">
+    
+    <!-- Top Navigation Bar -->
+    <header class="navbar">
+      <div class="nav-branding" onclick="App.showScreen('hub')">
+        <div class="logo-icon"><i class="fa-solid fa-gamepad"></i></div>
+        <div class="brand-text-group">
+          <h1 class="brand-title">GAME ARENA</h1>
+          <p class="brand-author">Created by <span>KABIR VYAS</span></p>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Player Profile Badge -->
+        <button class="player-badge-btn" id="open-profile-btn" title="Edit Player Profile">
+          <span class="player-avatar" id="nav-player-avatar">🎮</span>
+          <span class="player-name-text" id="nav-player-name">Player 1</span>
+          <i class="fa-solid fa-chevron-down caret-icon"></i>
+        </button>
+
+        <!-- Sound Toggle -->
+        <button class="icon-btn" id="sound-toggle-btn" title="Toggle Sound">
+          <i class="fa-solid fa-volume-high" id="sound-icon"></i>
+        </button>
+
+        <!-- Stats & History Button -->
+        <button class="nav-action-btn" id="open-stats-btn" title="View Past Stats & History">
+          <i class="fa-solid fa-chart-column"></i>
+          <span>Stats & History</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="main-content">
+      
+      <!-- ======================================================== -->
+      <!-- SCREEN 1: GAME HUB (Home Dashboard)                      -->
+      <!-- ======================================================== -->
+      <section id="screen-hub" class="screen active">
+        <!-- Hero Section -->
+        <div class="hub-hero">
+          <div class="hero-badge"><i class="fa-solid fa-bolt"></i> Ultimate Mini-Game Hub</div>
+          <h2 class="hero-heading">Welcome to <span class="highlight">GAME ARENA</span></h2>
+          <p class="hero-subtext">Engineered for precision and fun. Choose your challenge and dominate the leaderboards.</p>
+          <div class="hero-author-tag">
+            <i class="fa-solid fa-shield-halved"></i> Created by <strong>KABIR VYAS</strong>
+          </div>
+        </div>
+
+        <!-- Quick Player Stats Strip -->
+        <div class="quick-stats-strip">
+          <div class="stat-card">
+            <div class="stat-icon rps-color"><i class="fa-solid fa-trophy"></i></div>
+            <div class="stat-info">
+              <span class="stat-label">Total Matches</span>
+              <span class="stat-value" id="quick-total-games">0</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon ttt-color"><i class="fa-solid fa-crown"></i></div>
+            <div class="stat-info">
+              <span class="stat-label">Total Wins</span>
+              <span class="stat-value" id="quick-total-wins">0</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon sud-color"><i class="fa-solid fa-chart-pie"></i></div>
+            <div class="stat-info">
+              <span class="stat-label">Overall Win %</span>
+              <span class="stat-value" id="quick-win-rate">0%</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon gold-color"><i class="fa-solid fa-stopwatch"></i></div>
+            <div class="stat-info">
+              <span class="stat-label">Best Sudoku Time</span>
+              <span class="stat-value" id="quick-best-sudoku">--</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Games Grid -->
+        <div class="games-grid">
+          
+          <!-- Game 1: Rock Paper Scissors -->
+          <div class="game-card rps-card" onclick="App.launchGame('rps')">
+            <div class="card-glow"></div>
+            <div class="card-badge">Best of 5</div>
+            <div class="card-icon-wrapper">
+              <span class="emoji-icon">✊ ✋ ✌️</span>
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">Rock Paper Scissors</h3>
+              <p class="card-desc">First to 3 points takes the crown! Match wits with the AI in an animated showdown arena.</p>
+              <div class="card-meta">
+                <span><i class="fa-solid fa-fire"></i> Best of 5 Rounds</span>
+                <span><i class="fa-solid fa-robot"></i> Smart Bot</span>
+              </div>
+            </div>
+            <button class="play-card-btn">
+              <span>Enter Arena</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+          <!-- Game 2: Tic-Tac-Toe -->
+          <div class="game-card ttt-card" onclick="App.launchGame('ttt')">
+            <div class="card-glow"></div>
+            <div class="card-badge">2 Modes</div>
+            <div class="card-icon-wrapper">
+              <span class="emoji-icon">❌ ⭕ ⚔️</span>
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">Tic-Tac-Toe</h3>
+              <p class="card-desc">Align 3 in a row! Play against a tactical AI or challenge a friend locally in Duel Mode.</p>
+              <div class="card-meta">
+                <span><i class="fa-solid fa-robot"></i> vs Bot Mode</span>
+                <span><i class="fa-solid fa-user-group"></i> Duel Mode (2P)</span>
+              </div>
+            </div>
+            <button class="play-card-btn">
+              <span>Enter Arena</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+          <!-- Game 3: 6x6 Sudoku -->
+          <div class="game-card sudoku-card" onclick="App.launchGame('sudoku')">
+            <div class="card-glow"></div>
+            <div class="card-badge">Procedural</div>
+            <div class="card-icon-wrapper">
+              <span class="emoji-icon">🧩 🔢 ⏱️</span>
+            </div>
+            <div class="card-content">
+              <h3 class="card-title">6x6 Sudoku</h3>
+              <p class="card-desc">Sharpen your mind with infinite fresh puzzles. Features 2x3 blocks, pencil notes, and live timer.</p>
+              <div class="card-meta">
+                <span><i class="fa-solid fa-seedling"></i> Beginner Mode</span>
+                <span><i class="fa-solid fa-skull"></i> Pro Mode</span>
+              </div>
+            </div>
+            <button class="play-card-btn">
+              <span>Enter Arena</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Arena Author Signature Card -->
+        <div class="hub-signature-banner">
+          <div class="signature-icon"><i class="fa-solid fa-crown"></i></div>
+          <div class="signature-content">
+            <h4>GAME ARENA Platform</h4>
+            <p>Designed and Built by <strong>KABIR VYAS</strong>. Powered by pure modern client-side tech with instant browser storage.</p>
+          </div>
+          <button class="secondary-pill-btn" onclick="App.openStatsModal()">
+            <i class="fa-solid fa-chart-line"></i> View Your Records
+          </button>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- SCREEN 2: ROCK-PAPER-SCISSORS GAME                      -->
+      <!-- ======================================================== -->
+      <section id="screen-rps" class="screen">
+        <div class="game-header-bar">
+          <button class="back-btn" onclick="App.showScreen('hub')">
+            <i class="fa-solid fa-arrow-left"></i> Back to Hub
+          </button>
+          <div class="game-title-group">
+            <h2>Rock Paper Scissors</h2>
+            <span class="game-mode-pill">Best of 5 Matches (First to 3)</span>
+          </div>
+          <button class="reset-game-btn" onclick="RPSGame.resetMatch()">
+            <i class="fa-solid fa-rotate-right"></i> Restart
+          </button>
+        </div>
+
+        <div class="game-workspace">
+          <!-- RPS Arena Viewport -->
+          <div class="rps-arena">
+            
+            <!-- Scoreboard -->
+            <div class="rps-scoreboard">
+              <div class="score-box player-box">
+                <div class="score-avatar" id="rps-player-avatar">🎮</div>
+                <div class="score-details">
+                  <span class="score-player-name" id="rps-player-name">Player</span>
+                  <span class="score-digit" id="rps-user-score">0</span>
+                </div>
+                <div class="rounds-won-dots" id="rps-user-dots">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                </div>
+              </div>
+
+              <div class="vs-badge">
+                <span>VS</span>
+                <div class="round-indicator" id="rps-round-label">Round 1</div>
+              </div>
+
+              <div class="score-box bot-box">
+                <div class="score-avatar">🤖</div>
+                <div class="score-details">
+                  <span class="score-player-name">Arena Bot</span>
+                  <span class="score-digit" id="rps-bot-score">0</span>
+                </div>
+                <div class="rounds-won-dots" id="rps-bot-dots">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Showdown Display Area -->
+            <div class="rps-showdown">
+              <div class="showdown-hand-wrapper" id="rps-user-hand-wrapper">
+                <div class="showdown-hand" id="rps-user-hand">✊</div>
+                <span class="hand-label">Your Pick</span>
+              </div>
+
+              <div class="rps-banner-container">
+                <div class="rps-status-banner" id="rps-status-banner">Make your choice to begin!</div>
+              </div>
+
+              <div class="showdown-hand-wrapper" id="rps-bot-hand-wrapper">
+                <div class="showdown-hand" id="rps-bot-hand">🤖</div>
+                <span class="hand-label">Bot's Pick</span>
+              </div>
+            </div>
+
+            <!-- Weapon Choices Controls -->
+            <div class="rps-controls-container">
+              <p class="rps-choice-prompt">Choose Your Weapon:</p>
+              <div class="rps-choice-buttons">
+                <button class="rps-btn" id="rps-btn-rock" onclick="RPSGame.playRound('rock')">
+                  <span class="rps-emoji">✊</span>
+                  <span class="rps-label">Rock</span>
+                </button>
+                <button class="rps-btn" id="rps-btn-paper" onclick="RPSGame.playRound('paper')">
+                  <span class="rps-emoji">✋</span>
+                  <span class="rps-label">Paper</span>
+                </button>
+                <button class="rps-btn" id="rps-btn-scissors" onclick="RPSGame.playRound('scissors')">
+                  <span class="rps-emoji">✌️</span>
+                  <span class="rps-label">Scissors</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Round History Feed -->
+            <div class="rps-history-feed">
+              <h4>Round History</h4>
+              <div class="rps-rounds-list" id="rps-rounds-list">
+                <p class="empty-history-text">No rounds played in this match yet.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- SCREEN 3: TIC-TAC-TOE GAME                              -->
+      <!-- ======================================================== -->
+      <section id="screen-ttt" class="screen">
+        <div class="game-header-bar">
+          <button class="back-btn" onclick="App.showScreen('hub')">
+            <i class="fa-solid fa-arrow-left"></i> Back to Hub
+          </button>
+          <div class="game-title-group">
+            <h2>Tic-Tac-Toe</h2>
+            <div class="ttt-mode-switch-group">
+              <button class="mode-tab active" id="ttt-tab-bot" onclick="TTTGame.setMode('bot')">
+                <i class="fa-solid fa-robot"></i> vs Bot Mode
+              </button>
+              <button class="mode-tab" id="ttt-tab-duel" onclick="TTTGame.setMode('duel')">
+                <i class="fa-solid fa-user-group"></i> Duel Mode (2P)
+              </button>
+            </div>
+          </div>
+          <button class="reset-game-btn" onclick="TTTGame.resetGame()">
+            <i class="fa-solid fa-rotate-right"></i> Restart
+          </button>
+        </div>
+
+        <div class="game-workspace">
+          <div class="ttt-arena">
+            
+            <!-- TTT Match Status HUD -->
+            <div class="ttt-scoreboard">
+              <div class="ttt-player-card" id="ttt-p1-card">
+                <span class="ttt-symbol x-symbol">✕</span>
+                <div class="ttt-player-info">
+                  <span class="ttt-name" id="ttt-p1-name">Player 1</span>
+                  <span class="ttt-score" id="ttt-p1-score">0 Wins</span>
+                </div>
+              </div>
+
+              <div class="ttt-turn-indicator" id="ttt-turn-indicator">
+                <span id="ttt-turn-text">Player 1's Turn (X)</span>
+              </div>
+
+              <div class="ttt-player-card" id="ttt-p2-card">
+                <span class="ttt-symbol o-symbol">◯</span>
+                <div class="ttt-player-info">
+                  <span class="ttt-name" id="ttt-p2-name">Arena Bot</span>
+                  <span class="ttt-score" id="ttt-p2-score">0 Wins</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- TTT 3x3 Board with SVG Winning Line Overlay -->
+            <div class="ttt-board-container">
+              <div class="ttt-board" id="ttt-board">
+                <button class="ttt-cell" data-index="0" onclick="TTTGame.handleCellClick(0)"></button>
+                <button class="ttt-cell" data-index="1" onclick="TTTGame.handleCellClick(1)"></button>
+                <button class="ttt-cell" data-index="2" onclick="TTTGame.handleCellClick(2)"></button>
+                <button class="ttt-cell" data-index="3" onclick="TTTGame.handleCellClick(3)"></button>
+                <button class="ttt-cell" data-index="4" onclick="TTTGame.handleCellClick(4)"></button>
+                <button class="ttt-cell" data-index="5" onclick="TTTGame.handleCellClick(5)"></button>
+                <button class="ttt-cell" data-index="6" onclick="TTTGame.handleCellClick(6)"></button>
+                <button class="ttt-cell" data-index="7" onclick="TTTGame.handleCellClick(7)"></button>
+                <button class="ttt-cell" data-index="8" onclick="TTTGame.handleCellClick(8)"></button>
+              </div>
+              <div class="ttt-strike-line" id="ttt-strike-line"></div>
+            </div>
+
+            <!-- Match Banner & Next Game Control -->
+            <div class="ttt-bottom-actions">
+              <div class="ttt-banner" id="ttt-banner">Tap any square to place your mark</div>
+              <button class="action-pill-btn hidden" id="ttt-play-again-btn" onclick="TTTGame.resetGame()">
+                <i class="fa-solid fa-play"></i> Play Next Round
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- SCREEN 4: 6x6 SUDOKU GAME                               -->
+      <!-- ======================================================== -->
+      <section id="screen-sudoku" class="screen">
+        <div class="game-header-bar">
+          <button class="back-btn" onclick="App.showScreen('hub')">
+            <i class="fa-solid fa-arrow-left"></i> Back to Hub
+          </button>
+          <div class="game-title-group">
+            <h2>6x6 Sudoku</h2>
+            <div class="sudoku-diff-group">
+              <button class="diff-tab active" id="sud-tab-beginner" onclick="SudokuGame.setDifficulty('beginner')">
+                <i class="fa-solid fa-seedling"></i> Beginner
+              </button>
+              <button class="diff-tab" id="sud-tab-pro" onclick="SudokuGame.setDifficulty('pro')">
+                <i class="fa-solid fa-skull"></i> Pro
+              </button>
+            </div>
+          </div>
+          <button class="reset-game-btn" onclick="SudokuGame.generateNewPuzzle()">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> New Puzzle
+          </button>
+        </div>
+
+        <div class="game-workspace">
+          <div class="sudoku-arena">
+            
+            <!-- Sudoku HUD (Timer, Mistakes, Controls) -->
+            <div class="sudoku-hud">
+              <div class="hud-item">
+                <i class="fa-solid fa-clock"></i>
+                <span class="hud-label">Time</span>
+                <span class="hud-val" id="sudoku-timer">00:00</span>
+              </div>
+              <div class="hud-item">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span class="hud-label">Mistakes</span>
+                <span class="hud-val" id="sudoku-mistakes">0 / 3</span>
+              </div>
+              <div class="hud-item">
+                <i class="fa-solid fa-layer-group"></i>
+                <span class="hud-label">Difficulty</span>
+                <span class="hud-val highlight" id="sudoku-diff-display">Beginner</span>
+              </div>
+            </div>
+
+            <!-- Sudoku 6x6 Grid Container (2 rows of 3, each 2x3 block) -->
+            <div class="sudoku-board-wrapper">
+              <div class="sudoku-grid" id="sudoku-grid">
+                <!-- 36 Cells rendered dynamically -->
+              </div>
+            </div>
+
+            <!-- Sudoku Action Tools -->
+            <div class="sudoku-tools">
+              <button class="tool-btn" id="sudoku-pencil-btn" onclick="SudokuGame.togglePencilMode()" title="Toggle Pencil Notes">
+                <i class="fa-solid fa-pencil"></i>
+                <span>Notes (OFF)</span>
+              </button>
+              <button class="tool-btn" onclick="SudokuGame.eraseSelected()" title="Erase Cell">
+                <i class="fa-solid fa-eraser"></i>
+                <span>Erase</span>
+              </button>
+              <button class="tool-btn" onclick="SudokuGame.giveHint()" title="Get a Hint">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>Hint</span>
+              </button>
+              <button class="tool-btn" onclick="SudokuGame.undoMove()" title="Undo Last Move">
+                <i class="fa-solid fa-rotate-left"></i>
+                <span>Undo</span>
+              </button>
+            </div>
+
+            <!-- Number Keypad 1-6 -->
+            <div class="sudoku-keypad">
+              <button class="key-btn" onclick="SudokuGame.inputNumber(1)">1</button>
+              <button class="key-btn" onclick="SudokuGame.inputNumber(2)">2</button>
+              <button class="key-btn" onclick="SudokuGame.inputNumber(3)">3</button>
+              <button class="key-btn" onclick="SudokuGame.inputNumber(4)">4</button>
+              <button class="key-btn" onclick="SudokuGame.inputNumber(5)">5</button>
+              <button class="key-btn" onclick="SudokuGame.inputNumber(6)">6</button>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-left">
+        <strong>GAME ARENA</strong> &bull; Developed by <span class="creator-name">KABIR VYAS</span>
+      </div>
+      <div class="footer-right">
+        <span>Instant LocalStorage Storage</span> &bull;
+        <span>Zero Lag Pure Client-Side</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODALS & POPUPS                                          -->
+  <!-- ======================================================== -->
+
+  <!-- Modal 1: Stats & History -->
+  <div class="modal-overlay" id="stats-modal">
+    <div class="modal-box modal-lg">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-chart-column"></i>
+          <h3>Player Statistics & Match History</h3>
+        </div>
+        <button class="modal-close-btn" onclick="App.closeStatsModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        
+        <!-- Game Filter Tabs -->
+        <div class="stats-filter-tabs">
+          <button class="filter-tab active" data-filter="all" onclick="App.filterStats('all')">All Games</button>
+          <button class="filter-tab" data-filter="rps" onclick="App.filterStats('Rock-Paper-Scissors')">Rock Paper Scissors</button>
+          <button class="filter-tab" data-filter="ttt" onclick="App.filterStats('Tic-Tac-Toe')">Tic Tac Toe</button>
+          <button class="filter-tab" data-filter="sudoku" onclick="App.filterStats('Sudoku 6x6')">Sudoku 6x6</button>
+        </div>
+
+        <!-- Aggregate Summary Grid -->
+        <div class="stats-summary-grid">
+          <div class="summary-card">
+            <span class="num" id="modal-stat-played">0</span>
+            <span class="lbl">Matches Played</span>
+          </div>
+          <div class="summary-card">
+            <span class="num" id="modal-stat-won">0</span>
+            <span class="lbl">Matches Won</span>
+          </div>
+          <div class="summary-card">
+            <span class="num" id="modal-stat-winrate">0%</span>
+            <span class="lbl">Win Rate</span>
+          </div>
+          <div class="summary-card">
+            <span class="num" id="modal-stat-best-sudoku">--</span>
+            <span class="lbl">Best Sudoku Time</span>
+          </div>
+        </div>
+
+        <!-- History Table -->
+        <div class="history-table-wrapper">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Date & Time</th>
+                <th>Player</th>
+                <th>Game</th>
+                <th>Result</th>
+                <th>Score / Detail</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody id="stats-table-body">
+              <!-- Dynamically Populated -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Action Bar: Export & Reset -->
+        <div class="stats-footer-actions">
+          <button class="action-btn secondary" onclick="StorageManager.exportCSV()">
+            <i class="fa-solid fa-file-csv"></i> Export CSV
+          </button>
+          <button class="action-btn secondary" onclick="StorageManager.exportJSON()">
+            <i class="fa-solid fa-download"></i> Export JSON
+          </button>
+          <button class="action-btn danger" onclick="App.confirmClearData()">
+            <i class="fa-solid fa-trash-can"></i> Clear All Records
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Edit Profile -->
+  <div class="modal-overlay" id="profile-modal">
+    <div class="modal-box modal-sm">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-user-pen"></i>
+          <h3>Player Profile</h3>
+        </div>
+        <button class="modal-close-btn" onclick="App.closeProfileModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="avatar-selection-group">
+          <label>Choose Your Avatar:</label>
+          <div class="avatar-grid" id="avatar-grid">
+            <button class="avatar-opt" data-avatar="🎮">🎮</button>
+            <button class="avatar-opt" data-avatar="👑">👑</button>
+            <button class="avatar-opt" data-avatar="⚡">⚡</button>
+            <button class="avatar-opt" data-avatar="🔥">🔥</button>
+            <button class="avatar-opt" data-avatar="🐉">🐉</button>
+            <button class="avatar-opt" data-avatar="🚀">🚀</button>
+            <button class="avatar-opt" data-avatar="🦊">🦊</button>
+            <button class="avatar-opt" data-avatar="💎">💎</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="profile-name-input">Player Name:</label>
+          <input type="text" id="profile-name-input" maxlength="20" placeholder="Enter player name...">
+        </div>
+
+        <div class="modal-actions-bar">
+          <button class="action-btn primary" onclick="App.saveProfile()">Save Profile</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Victory / Match End Dialog -->
+  <div class="modal-overlay" id="victory-modal">
+    <div class="modal-box modal-sm celebration-box">
+      <div class="victory-icon" id="victory-modal-icon">🏆</div>
+      <h3 class="victory-title" id="victory-modal-title">VICTORY!</h3>
+      <p class="victory-subtitle" id="victory-modal-subtitle">You won the match!</p>
+      
+      <div class="victory-details-card" id="victory-details-card">
+        <!-- Details injected dynamically -->
+      </div>
+
+      <div class="victory-actions">
+        <button class="action-btn primary" id="victory-play-again-btn">
+          <i class="fa-solid fa-rotate-right"></i> Play Again
+        </button>
+        <button class="action-btn secondary" onclick="App.showScreen('hub')">
+          <i class="fa-solid fa-house"></i> Game Hub
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/games/rps.js"></script>
+  <script src="js/games/tictactoe.js"></script>
+  <script src="js/games/sudoku.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
